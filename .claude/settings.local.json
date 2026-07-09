@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm -v)",
+      "PowerShell(node -v)",
+      "PowerShell(npm -v)",
+      "PowerShell($paths = @\\(\"C:\\\\Program Files\\\\nodejs\\\\node.exe\",\"C:\\\\Program Files \\(x86\\)\\\\nodejs\\\\node.exe\",\"$env:LOCALAPPDATA\\\\Programs\\\\nodejs\\\\node.exe\",\"$env:APPDATA\\\\npm\\\\node.exe\"\\); foreach \\($p in $paths\\) { if \\(Test-Path $p\\) { Write-Output \"FOUND: $p\" } }; Get-Command node -ErrorAction SilentlyContinue; where.exe node 2>$null; where.exe nvm 2>$null; Get-ChildItem \"$env:LOCALAPPDATA\\\\Programs\" -ErrorAction SilentlyContinue | Select-Object Name)",
+      "PowerShell(Get-Command winget -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Command choco -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Command scoop -ErrorAction SilentlyContinue)",
+      "PowerShell(winget install -e --id OpenJS.NodeJS.LTS --accept-source-agreements --accept-package-agreements)",
+      "PowerShell($env:PATH = \"C:\\\\Program Files\\\\nodejs;$env:PATH\"; node -v; npm -v)",
+      "Bash(ls -la \"/c/Users/natur/AppData/Local/Temp/claude/E--Claude-code-proposal-generator/fb9f7db3-354b-47e5-9f7e-9d091d52ecae/scratchpad\" 2>/dev/null || echo \"no scratchpad yet\")",
+      "PowerShell([System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) -split \";\" | Select-String -Pattern \"nodejs\")",
+      "Bash(taskkill //PID 73588 //F)",
+      "Bash(taskkill //PID 39616 //F)",
+      "Bash(taskkill //PID 126712 //F)",
+      "Bash(taskkill //PID 122108 //F)",
+      "Bash(taskkill //PID 61516 //F)"
+    ]
+  }
+}

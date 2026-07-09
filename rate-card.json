@@ -1,0 +1,59 @@
+{
+  "_comment": "Rate card for the Proposal Generator. Fixed, pre-negotiated pricing. The generation logic composes three tiers (Baseline / Recommended / Premium) by selecting from these line items. Do not invent prices outside this card. Update values here without touching application code.",
+
+  "currency": "USD",
+
+  "integrations": [
+    {
+      "id": "salesforce",
+      "name": "Salesforce Integration",
+      "oneTimeFee": 5000,
+      "annualFee": 800,
+      "description": "Real-time sync of account data to enable automated escalation and priority routing."
+    },
+    {
+      "id": "slack",
+      "name": "Slack Integration",
+      "oneTimeFee": 5000,
+      "annualFee": 0,
+      "description": "Connects platform notifications and workflows to Slack channels."
+    },
+    {
+      "id": "jira",
+      "name": "Jira Integration",
+      "oneTimeFee": 7500,
+      "annualFee": 1200,
+      "description": "Bi-directional webhook setup to automatically create and route engineering tickets."
+    }
+  ],
+
+  "professionalServices": [
+    {
+      "id": "training",
+      "name": "Training Package",
+      "oneTimeFee": 3000,
+      "annualFee": 0,
+      "unit": "one-time",
+      "description": "One full day of training on any topic.",
+      "travelBilledSeparately": true
+    },
+    {
+      "id": "consulting",
+      "name": "Consulting Package",
+      "oneTimeFee": 5000,
+      "annualFee": 0,
+      "unit": "one-time",
+      "description": "Three days of consulting, remote or onsite.",
+      "travelBilledSeparately": true
+    },
+    {
+      "id": "enterprise_support",
+      "name": "Enterprise Support",
+      "monthlyFee": 5000,
+      "commitmentMonths": 12,
+      "unit": "monthly",
+      "description": "Dedicated ongoing support. Monthly fee with a one-year commitment.",
+      "travelBilledSeparately": true
+    }
+  ]
+}

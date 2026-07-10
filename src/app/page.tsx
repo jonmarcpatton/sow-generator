@@ -4,6 +4,7 @@ import { useState } from "react";
 import CollapsedNotesPanel from "@/components/CollapsedNotesPanel";
 import InputPanel from "@/components/InputPanel";
 import ProposalOutput from "@/components/ProposalOutput";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { generateProposalStub } from "@/lib/generateProposal";
 import type { ProposalData } from "@/lib/types";
 
@@ -15,14 +16,33 @@ export default function Home() {
   const [proposal, setProposal] = useState<ProposalData | null>(null);
   const [generating, setGenerating] = useState(false);
   const [editingNotes, setEditingNotes] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleGenerate() {
+  async function handleGenerate() {
     setGenerating(true);
-    setTimeout(() => {
-      setProposal(generateProposalStub(notes));
-      setGenerating(false);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ notes }),
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        setError(body?.error ?? "Something went wrong generating the statement of work.");
+        return;
+      }
+
+      const data: ProposalData = await res.json();
+      setProposal(data);
       setEditingNotes(false);
-    }, GENERATE_DELAY_MS);
+    } catch {
+      setError("Couldn't reach the server. Please try again.");
+    } finally {
+      setGenerating(false);
+    }
   }
 
   return (
@@ -45,6 +65,7 @@ export default function Home() {
               onGenerate={handleGenerate}
               generating={generating}
             />
+            {error && <p className="mt-3 text-sm text-destructive">{error}</p>}
           </div>
           <ProposalOutput proposal={null} logoDataUrl={logoDataUrl} generating={generating} />
         </div>

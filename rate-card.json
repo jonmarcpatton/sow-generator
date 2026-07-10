@@ -1,5 +1,5 @@
 {
-  "_comment": "Rate card for the Proposal Generator. Fixed, pre-negotiated pricing. The generation logic composes three tiers (Baseline / Recommended / Premium) by selecting from these line items. Do not invent prices outside this card. Update values here without touching application code.",
+  "_comment": "Rate card for the Proposal Generator. Fixed, pre-negotiated pricing. The generation logic selects the line items that fit a customer's needs and assembles a single tailored Statement of Work (not fixed tiers). Do not invent prices or line items outside this card. Update values here without touching application code.",
 
   "currency": "USD",
 

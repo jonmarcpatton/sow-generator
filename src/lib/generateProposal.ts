@@ -2,7 +2,7 @@ import rateCard from "../../rate-card.json";
 import terms from "../../terms.json";
 import type { ProposalData, ScopeItem, ScopeOfWork } from "./types";
 
-type RateCardItem = {
+export type RateCardItem = {
   id: string;
   name: string;
   oneTimeFee?: number;
@@ -14,9 +14,9 @@ type RateCardItem = {
   travelBilledSeparately?: boolean;
 };
 
-const integrationIds = new Set(rateCard.integrations.map((item) => item.id));
+export const integrationIds = new Set(rateCard.integrations.map((item) => item.id));
 
-const catalog: RateCardItem[] = [
+export const catalog: RateCardItem[] = [
   ...rateCard.integrations,
   ...rateCard.professionalServices,
 ];
@@ -40,7 +40,7 @@ const ITEM_BLURBS: Record<string, string> = {
     "Ongoing dedicated support to keep the engagement running smoothly after go-live.",
 };
 
-function toScopeItem(id: string): ScopeItem {
+export function toScopeItem(id: string): ScopeItem {
   const raw = catalog.find((item) => item.id === id);
   if (!raw) {
     throw new Error(`Unknown rate card line item: ${id}`);
@@ -60,7 +60,7 @@ function toScopeItem(id: string): ScopeItem {
   };
 }
 
-function buildScopeOfWork(itemIds: string[]): ScopeOfWork {
+export function buildScopeOfWork(itemIds: string[]): ScopeOfWork {
   const items = itemIds.map(toScopeItem);
 
   return {
@@ -78,7 +78,7 @@ function buildScopeOfWork(itemIds: string[]): ScopeOfWork {
 }
 
 /** Strips a leading "Discovery Call Notes:" (or similar) label so it never leaks into the client name. */
-function extractClientName(notes: string): string {
+export function extractClientName(notes: string): string {
   const lines = notes
     .split("\n")
     .map((line) => line.trim())

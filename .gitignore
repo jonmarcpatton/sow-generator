@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local secrets and backups (do not commit)
+docs/API Key*.txt
+rate-card.json.bak

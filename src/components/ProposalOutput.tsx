@@ -154,7 +154,7 @@ export default function ProposalOutput({
   if (generating) {
     return (
       <section className="flex min-h-[400px] flex-col items-center justify-center rounded-xl border border-border bg-card p-6 text-center">
-        <p className="text-sm font-medium text-muted-foreground">Generating proposal…</p>
+        <p className="text-sm font-medium text-muted-foreground">Generating statement of work…</p>
       </section>
     );
   }
@@ -163,8 +163,8 @@ export default function ProposalOutput({
     return (
       <section className="flex min-h-[400px] flex-col items-center justify-center rounded-xl border border-dashed border-border bg-card p-6 text-center">
         <p className="text-sm text-muted-foreground">
-          Your generated proposal will appear here. Paste your discovery call notes on the left
-          and click &ldquo;Generate Proposal&rdquo; to get started.
+          Your generated statement of work will appear here. Paste your discovery call notes on
+          the left and click &ldquo;Generate Statement of Work&rdquo; to get started.
         </p>
       </section>
     );
@@ -193,9 +193,9 @@ export default function ProposalOutput({
 
         <div className="break-inside-avoid">
           <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-            Services Proposal &amp; Agreement
+            Statement of Work &amp; Agreement
           </p>
-          <h1 className="mt-1 text-3xl font-semibold">Services Proposal for {proposal.clientName}</h1>
+          <h1 className="mt-1 text-3xl font-semibold">Statement of Work for {proposal.clientName}</h1>
           <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm text-muted-foreground">
             <span>Date: {proposal.preparedDate}</span>
             <span>Reference: {proposal.referenceNumber}</span>
@@ -238,7 +238,7 @@ export default function ProposalOutput({
           </div>
 
           <div className="break-inside-avoid">
-            <h2 className="text-lg font-semibold">Proposal Terms</h2>
+            <h2 className="text-lg font-semibold">General Terms</h2>
             <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed">
               {proposal.proposalTerms.map((term) => (
                 <li key={term}>{term}</li>
@@ -255,7 +255,7 @@ export default function ProposalOutput({
         <div className="mt-12 print:break-before-page">
           <h2 className="text-lg font-semibold">Acceptance</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            This proposal will be sent for signature via DocuSign upon acceptance.
+            This statement of work will be sent for signature via DocuSign upon acceptance.
           </p>
           <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
             <SignatureBlock role="Vendor" companyName={VENDOR_NAME} />

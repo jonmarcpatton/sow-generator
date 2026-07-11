@@ -164,7 +164,7 @@ export default function InputPanel({
         disabled={!canGenerate}
         className="mt-2 inline-flex items-center justify-center rounded-md bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {generating ? "Generating…" : "Generate Proposal"}
+        {generating ? "Generating…" : "Generate Statement of Work"}
       </button>
     </section>
   );

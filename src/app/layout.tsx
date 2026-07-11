@@ -15,8 +15,8 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "Proposal Generator",
-  description: "Turn discovery call notes into a client-ready proposal.",
+  title: "Statement of Work Generator",
+  description: "Turn discovery call notes into a client-ready statement of work.",
 };
 
 export default function RootLayout({

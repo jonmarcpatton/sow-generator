@@ -1,0 +1,122 @@
+{
+  "_comment": "Verbatim contractual boilerplate for the Statement of Work. This text is FIXED and must be rendered VERBATIM. The AI must never see, generate, paraphrase, or modify any content in this file. Placeholders in [brackets] are filled deterministically at assembly time, never by the AI.",
+
+  "preamble": "THIS STATEMENT OF WORK (\"SOW\") is made and entered into by and between [VENDOR_NAME], together with its affiliates (hereinafter \"Vendor\"), and [CLIENT_NAME] (\"Customer\") (each, a \"Party\" and collectively, the \"Parties\") as of the date last signed below. This SOW forms part of the Service Agreement or other commercial agreement between the Parties (the \"Agreement\") and is subject to the terms and conditions contained therein. Capitalized terms used and not otherwise defined herein shall have the respective meanings set forth in the Agreement. In the event of any conflict between the provisions of this SOW and the provisions of the Agreement, the provisions of this SOW shall prevail over the conflicting provisions of the Agreement. Any changes to this SOW must be made in writing and signed by an authorized representative of each Party.",
+
+  "termSection": {
+    "heading": "Term",
+    "body": "This SOW commences on [START_DATE] and terminates on the completion of all services and Deliverables (as hereinafter defined) (the \"Term\")."
+  },
+
+  "vendorResponsibilities": {
+    "heading": "Vendor Responsibilities",
+    "intro": "Vendor will provide Customer the following Professional Services (the \"Professional Services\") by the conclusion of this SOW:",
+    "clauses": [
+      "Provide oversight on the Customer configuration of the in-scope solution components;",
+      "Assist Customer in training individuals who will manage the Service, and provide guidance on best practice playbooks and processes for the use of the Service as appropriate depending on the use case; and",
+      "Facilitate Customer's transition from implementation to steady state support by the Vendor Customer Success and Support teams."
+    ]
+  },
+
+  "customerResponsibilities": {
+    "heading": "Customer Responsibilities",
+    "intro": "Customer acknowledges that Vendor's ability to perform the Professional Services hereunder depends upon Customer's fulfillment of the following, and Customer hereby agrees to:",
+    "clauses": [
+      "Provide access to Customer's instance of the Service at the beginning of the project where all implementation activities will take place;",
+      "Define and maintain its business objectives and requirements and provide all data, rules, and documents required to configure the instance;",
+      "Provide Customer personnel in accordance with the Representatives section who maintain decision-making authority;",
+      "Provide accurate data and documentation as requested by Vendor;",
+      "Obtain, if required, all third party consents including any consents needed for Vendor to access relevant third-party software or Services;",
+      "Own any organizational or business process change management required to adopt the Service; and",
+      "Determine whether the Professional Services that Vendor is requested to provide hereunder address Customer requirements, comply with all laws and regulations applicable to Customer, and comply with Customer's applicable internal guidelines and any other third-party agreements."
+    ]
+  },
+
+  "assumptions": {
+    "heading": "Key Assumptions and Dependencies",
+    "intro": "The following assumptions have been used to develop this SOW. Any deviation from these assumptions may cause changes to the project schedule, fees and expenses, tasks, and the level of effort required to perform the Professional Services covered by this SOW.",
+    "clauses": [
+      "A project lead (\"Representative\") will be assigned by Customer on a full-time basis for the Term of this SOW. The Customer's Representative will be the primary point of contact for the Vendor team on all matters including coordination of Customer's resources, facilitating internal Customer processes, and any escalations that may be required to ensure the project proceeds as agreed.",
+      "All Services and/or Professional Services under this SOW will be performed remotely unless otherwise agreed by the Parties. Customer will provide Vendor project team members with access to its applicable systems and technological environments, including VPN credentials if necessary, as reasonably required to enable Vendor to render the Services.",
+      "If any Services and/or Professional Services will be performed at the Customer's work site, Customer will provide access to its facilities and suitable workspace for Vendor project team members as reasonably required to enable Vendor to render the Services.",
+      "Customer will provide the Vendor team access to Customer's subject matter experts (\"SMEs\") as reasonably required to enable Vendor to render the Services and/or Professional Services. Vendor expects that a key SME will be identified for each use case by the end of Phase 1 (see Appendix A) and that the nominated SME shall be accessible to the project team as required for the duration of the project.",
+      "Customer will be responsible for the responsiveness and performance of any SME, Representative, third-party vendor, and/or subcontractor engaged by Customer in connection with the scope described in this SOW."
+    ],
+    "rolloutStrategyHeading": "Rollout Strategy",
+    "otherAssumptionsHeading": "Other Assumptions and Dependencies"
+  },
+
+  "feesSection": {
+    "heading": "Professional Service Fees",
+    "taxesHeading": "Taxes and Expenses",
+    "paymentTermsHeading": "Payment Terms",
+    "scopeVariationHeading": "Scope Variation",
+    "scopeVariation": "In the event of significant variations to the scope of the Professional Services set forth in this SOW (e.g., additional processes, significant process changes, rework, and avoidable delays), Vendor has the right to negotiate a variation to the scope and payment as documented in this SOW. As an example, should the project schedule become materially protracted beyond the scope set forth above, the cause of which is outside the control of Vendor, a change order will be processed to extend the services of the Vendor resources along with the appropriate cost."
+  },
+
+  "representatives": {
+    "heading": "Representatives",
+    "intro": "To meet the objectives and scope of this engagement, Vendor and Customer will appoint personnel appropriate to the roles required. In some cases, the same Customer individual may facilitate multiple roles depending on how the Customer is organized. Initial primary contacts for this SOW are:",
+    "closing": "While Vendor will use commercially reasonable efforts to ensure that all named individuals within this SOW remain assigned to this project, Vendor reserves the right to remove and replace staff at its own discretion. Vendor's ability to provide specific resources to Customer is highly dependent on the availability of Customer's appointed personnel and their performance of the Customer's obligations under the Agreement and this SOW. Notwithstanding the foregoing, in the event that Customer fails to provide required personnel, or if any Customer personnel fails to act, as and when necessary for Vendor to perform the Professional Services, Vendor: (i) provides no assurances that it will be able to complete the Professional Services in accordance with the estimates set forth above or that any named individuals within this SOW or other specific Vendor personnel will be available to perform the Professional Services requiring such Customer personnel's involvement, and (ii) shall be relieved from any obligations hereunder to provide any specific individuals to engage in the Professional Services."
+  },
+
+  "generalTermsHeading": "General Terms",
+
+  "execution": {
+    "intro": "In witness whereof, the Parties hereto have executed this Agreement, which may be executed in one or more counterparts, each of which shall be deemed an original, and all of which shall constitute one and the same instrument.",
+    "fields": ["Signed", "Print Name", "Title", "Date", "Address"]
+  },
+
+  "appendixA": {
+    "heading": "Appendix A: Implementation Approach",
+    "intro": "[VENDOR_NAME] follows a phased implementation methodology developed across prior engagements. The approach is designed to establish a working foundation early, layer capability incrementally, and transition the Customer to self-sufficiency by the conclusion of the engagement. Phases may overlap where scope permits.",
+    "phases": [
+      {
+        "name": "Phase 1: Initiation and Planning",
+        "activities": [
+          "Kickoff meeting and introduction of project teams",
+          "Confirmation of objectives, success criteria, and in-scope components",
+          "Review of Customer environment, systems of record, and existing processes",
+          "Establishment of project plan, meeting cadence, and escalation path"
+        ]
+      },
+      {
+        "name": "Phase 2: Foundation and Configuration",
+        "activities": [
+          "Provisioning and base configuration of the Customer instance",
+          "Configuration of authentication, user roles, and permissions",
+          "Definition of core data structures and business rules",
+          "Validation of foundational configuration against Customer requirements"
+        ]
+      },
+      {
+        "name": "Phase 3: Integration and Data",
+        "activities": [
+          "Connection of in-scope source systems and applications",
+          "Field mapping, data validation, and reconciliation",
+          "Configuration of synchronization schedules and error handling",
+          "End-to-end testing of integrated data flows"
+        ]
+      },
+      {
+        "name": "Phase 4: Enablement and Adoption",
+        "activities": [
+          "Administrator training and knowledge transfer",
+          "End-user enablement and documentation walkthrough",
+          "Guidance on best-practice playbooks and operating processes",
+          "Support for Customer-led rollout and change management activities"
+        ]
+      },
+      {
+        "name": "Phase 5: Transition to Steady State",
+        "activities": [
+          "Confirmation that in-scope Deliverables are complete and accepted",
+          "Handoff to the Customer Success and Support teams",
+          "Review of open items, known limitations, and recommended next steps",
+          "Establishment of ongoing support and escalation procedures"
+        ]
+      }
+    ],
+    "closing": "[VENDOR_NAME] will typically establish a weekly project team meeting including both Customer and [VENDOR_NAME] participants to confirm progress and address obstacles. We recommend a separate executive cadence to support the project teams in removing blockers, driving decisions, and managing project risk."
+  }
+}

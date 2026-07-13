@@ -231,5 +231,9 @@ export async function generateProposalAI(notes: string): Promise<ProposalData> {
       addressForNotices: "",
       emailAddress: "",
     },
+    aiProvenance: {
+      catalogSize: catalog.length,
+      selectedCount: validatedIds.length,
+    },
   };
 }

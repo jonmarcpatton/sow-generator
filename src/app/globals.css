@@ -97,6 +97,15 @@ body {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
+.ai-content {
+  border-left: 3px solid var(--primary);
+  background: color-mix(in oklch, var(--primary) 6%, transparent);
+  padding-left: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
 @media print {
   .no-print {
     display: none !important;
@@ -161,6 +170,16 @@ body {
   /* The signature grid overflows the page at full padding — tighten it for print */
   #proposal-document .grid {
     gap: 1rem;
+  }
+
+  /* AI-content highlighting is a screen-only affordance — the printed SOW is clean */
+  #proposal-document .ai-content {
+    border-left: none;
+    background: none;
+    padding-left: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 0;
   }
 }
 

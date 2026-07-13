@@ -126,6 +126,11 @@ function InvestmentSummary({ scopeOfWork }: { scopeOfWork: ScopeOfWork }) {
   );
 }
 
+/** Marks AI-generated content on screen. Invisible in print. */
+function AIContent({ children }: { children: React.ReactNode }) {
+  return <div className="ai-content">{children}</div>;
+}
+
 function Clause({ number, text }: { number: string; text: string }) {
   return (
     <div className="flex gap-3 break-inside-avoid pl-10">
@@ -195,6 +200,16 @@ export default function ProposalOutput({
         </button>
       </div>
 
+      <div className="no-print rounded-md border border-border bg-muted p-4">
+        <p className="text-sm font-semibold text-card-foreground">AI-generated content is highlighted below.</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Claude read the discovery notes and determined which services this engagement requires, wrote
+          the scope narrative for each, and extracted the rollout strategy and dependencies directly from
+          the notes. Fees, payment terms, and all contractual language are fixed, load verbatim from file,
+          and are never seen or written by the AI.
+        </p>
+      </div>
+
       <div
         id="proposal-document"
         className="rounded-xl border border-border bg-card p-8 font-serif text-card-foreground shadow-sm sm:p-12 lg:p-14 print:p-0"
@@ -220,10 +235,14 @@ export default function ProposalOutput({
           <h2 className="border-b border-primary pb-1 text-lg font-semibold text-primary">
             1. Objectives and Scope
           </h2>
-          <p className="text-sm leading-relaxed">{proposal.introduction}</p>
+          <AIContent>
+            <p className="text-sm leading-relaxed">{proposal.introduction}</p>
+          </AIContent>
           {proposal.scopeOfWork.items.map((item, index) => (
             <SubSection key={item.id} number={`1.${index + 1}`} heading={item.name}>
-              <p className="text-sm leading-relaxed">{item.blurb}</p>
+              <AIContent>
+                <p className="text-sm leading-relaxed">{item.blurb}</p>
+              </AIContent>
             </SubSection>
           ))}
         </div>
@@ -266,18 +285,22 @@ export default function ProposalOutput({
             ))}
           </div>
           <SubSection number="4.6" heading={fillPlain(boilerplate.assumptions.rolloutStrategyHeading)}>
-            <p className="text-sm leading-relaxed">{proposal.rolloutStrategy}</p>
+            <AIContent>
+              <p className="text-sm leading-relaxed">{proposal.rolloutStrategy}</p>
+            </AIContent>
           </SubSection>
           <SubSection number="4.7" heading={fillPlain(boilerplate.assumptions.otherAssumptionsHeading)}>
-            {proposal.otherAssumptions.length > 0 ? (
-              <ul className="list-disc space-y-1 pl-10 text-sm leading-relaxed">
-                {proposal.otherAssumptions.map((assumption) => (
-                  <li key={assumption}>{assumption}</li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-sm leading-relaxed">None identified.</p>
-            )}
+            <AIContent>
+              {proposal.otherAssumptions.length > 0 ? (
+                <ul className="list-disc space-y-1 pl-10 text-sm leading-relaxed">
+                  {proposal.otherAssumptions.map((assumption) => (
+                    <li key={assumption}>{assumption}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-sm leading-relaxed">None identified.</p>
+              )}
+            </AIContent>
           </SubSection>
         </div>
 

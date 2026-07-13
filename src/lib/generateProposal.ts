@@ -151,5 +151,9 @@ export function generateProposalStub(notes: string): ProposalData {
       addressForNotices: "",
       emailAddress: "",
     },
+    aiProvenance: {
+      catalogSize: catalog.length,
+      selectedCount: 0,
+    },
   };
 }

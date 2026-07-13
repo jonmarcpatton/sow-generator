@@ -31,6 +31,13 @@ export type Representative = {
   emailAddress: string;
 };
 
+export type AIProvenance = {
+  /** Total number of items in the rate card catalog that were offered to the model. */
+  catalogSize: number;
+  /** Number of items the model selected. */
+  selectedCount: number;
+};
+
 export type ProposalData = {
   clientName: string;
   preparedDate: string;
@@ -52,4 +59,6 @@ export type ProposalData = {
   /** Form fields for the Representatives section. Not AI-generated. */
   vendorRepresentative: Representative;
   customerRepresentative: Representative;
+  /** Metadata about what the AI actually decided. Used to surface AI contribution in the UI. */
+  aiProvenance: AIProvenance;
 };

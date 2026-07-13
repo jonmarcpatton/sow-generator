@@ -18,8 +18,32 @@ function formatCurrency(amount: number) {
   });
 }
 
-/** Substitutes the [VENDOR_NAME] / [CLIENT_NAME] / [START_DATE] tokens used throughout sow-boilerplate.json. */
-function fillPlaceholders(text: string, proposal: ProposalData) {
+/**
+ * Substitutes the [VENDOR_NAME] / [CLIENT_NAME] / [START_DATE] tokens used
+ * throughout sow-boilerplate.json, returning React nodes with the vendor and
+ * customer names bolded. START_DATE substitutes as plain text. Handles any
+ * number of occurrences of any token, in any order, and returns the text
+ * unchanged when no tokens are present.
+ */
+function fillPlaceholders(text: string, proposal: ProposalData): React.ReactNode {
+  const tokenPattern = /(\[VENDOR_NAME\]|\[CLIENT_NAME\]|\[START_DATE\])/g;
+
+  return text.split(tokenPattern).map((part, index) => {
+    switch (part) {
+      case "[VENDOR_NAME]":
+        return <strong key={index}>{proposal.vendorName}</strong>;
+      case "[CLIENT_NAME]":
+        return <strong key={index}>{proposal.clientName}</strong>;
+      case "[START_DATE]":
+        return proposal.startDate;
+      default:
+        return part;
+    }
+  });
+}
+
+/** Plain-string version of fillPlaceholders, for call sites typed as string (e.g. heading props). */
+function fillText(text: string, proposal: ProposalData): string {
   return text
     .replaceAll("[VENDOR_NAME]", proposal.vendorName)
     .replaceAll("[CLIENT_NAME]", proposal.clientName)
@@ -102,17 +126,16 @@ function InvestmentSummary({ scopeOfWork }: { scopeOfWork: ScopeOfWork }) {
   );
 }
 
-/** A numbered clause line, e.g. "3.1  Provide oversight on..." */
 function Clause({ number, text }: { number: string; text: string }) {
   return (
-    <div className="flex gap-3 break-inside-avoid">
-      <span className="shrink-0 text-sm font-medium text-muted-foreground">{number}</span>
+    <div className="flex gap-3 break-inside-avoid pl-10">
+      <span className="w-10 shrink-0 text-sm font-semibold text-card-foreground">{number}</span>
       <p className="text-sm leading-relaxed">{text}</p>
     </div>
   );
 }
 
-/** A numbered subsection with its own heading, e.g. "5.6  Rollout Strategy" followed by body content. */
+/** A numbered subsection with its own heading, e.g. "4.6  Rollout Strategy" followed by body content. */
 function SubSection({
   number,
   heading,
@@ -123,7 +146,7 @@ function SubSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="break-inside-avoid">
+    <div className="break-inside-avoid pl-10">
       <h3 className="text-sm font-semibold text-card-foreground">
         {number} {heading}
       </h3>
@@ -157,6 +180,7 @@ export default function ProposalOutput({
   }
 
   const fill = (text: string) => fillPlaceholders(text, proposal);
+  const fillPlain = (text: string) => fillText(text, proposal);
   const hasTravelNote = proposal.scopeOfWork.items.some((item) => item.travelBilledSeparately);
 
   return (
@@ -181,9 +205,6 @@ export default function ProposalOutput({
         )}
 
         <div className="break-inside-avoid">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-            Statement of Work &amp; Agreement
-          </p>
           <h1 className="mt-1 text-3xl font-semibold">Statement of Work for {proposal.clientName}</h1>
           <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm text-muted-foreground">
             <span>Date: {proposal.preparedDate}</span>
@@ -194,60 +215,62 @@ export default function ProposalOutput({
 
         <p className="mt-8 text-sm leading-relaxed">{fill(boilerplate.preamble)}</p>
 
-        {/* 1. Term */}
-        <div className="mt-10 break-inside-avoid">
-          <h2 className="text-lg font-semibold">1. Term</h2>
-          <p className="mt-3 text-sm leading-relaxed">{fill(boilerplate.termSection.body)}</p>
-        </div>
-
-        {/* 2. Objectives and Scope */}
-        <div className="mt-10 space-y-4 break-inside-avoid">
-          <h2 className="text-lg font-semibold">2. Objectives and Scope</h2>
+        {/* 1. Objectives and Scope */}
+        <div className="mt-10 space-y-4">
+          <h2 className="border-b border-primary pb-1 text-lg font-semibold text-primary">
+            1. Objectives and Scope
+          </h2>
           <p className="text-sm leading-relaxed">{proposal.introduction}</p>
           {proposal.scopeOfWork.items.map((item, index) => (
-            <SubSection key={item.id} number={`2.${index + 1}`} heading={item.name}>
+            <SubSection key={item.id} number={`1.${index + 1}`} heading={item.name}>
               <p className="text-sm leading-relaxed">{item.blurb}</p>
             </SubSection>
           ))}
         </div>
 
-        {/* 3. Vendor Responsibilities */}
-        <div className="mt-10 space-y-4 break-inside-avoid">
-          <h2 className="text-lg font-semibold">3. Vendor Responsibilities</h2>
+        {/* 2. Vendor Responsibilities */}
+        <div className="mt-10 space-y-4">
+          <h2 className="border-b border-primary pb-1 text-lg font-semibold text-primary">
+            2. Vendor Responsibilities
+          </h2>
           <p className="text-sm leading-relaxed">{fill(boilerplate.vendorResponsibilities.intro)}</p>
           <div className="space-y-2">
             {boilerplate.vendorResponsibilities.clauses.map((clause, index) => (
-              <Clause key={clause} number={`3.${index + 1}`} text={fill(clause)} />
+              <Clause key={clause} number={`2.${index + 1}`} text={fillPlain(clause)} />
             ))}
           </div>
         </div>
 
-        {/* 4. Customer Responsibilities */}
-        <div className="mt-10 space-y-4 break-inside-avoid">
-          <h2 className="text-lg font-semibold">4. Customer Responsibilities</h2>
+        {/* 3. Customer Responsibilities */}
+        <div className="mt-10 space-y-4">
+          <h2 className="border-b border-primary pb-1 text-lg font-semibold text-primary">
+            3. Customer Responsibilities
+          </h2>
           <p className="text-sm leading-relaxed">{fill(boilerplate.customerResponsibilities.intro)}</p>
           <div className="space-y-2">
             {boilerplate.customerResponsibilities.clauses.map((clause, index) => (
-              <Clause key={clause} number={`4.${index + 1}`} text={fill(clause)} />
+              <Clause key={clause} number={`3.${index + 1}`} text={fillPlain(clause)} />
             ))}
           </div>
         </div>
 
-        {/* 5. Key Assumptions and Dependencies */}
-        <div className="mt-10 space-y-4 break-inside-avoid">
-          <h2 className="text-lg font-semibold">5. Key Assumptions and Dependencies</h2>
+        {/* 4. Key Assumptions and Dependencies */}
+        <div className="mt-10 space-y-4">
+          <h2 className="border-b border-primary pb-1 text-lg font-semibold text-primary">
+            4. Key Assumptions and Dependencies
+          </h2>
           <p className="text-sm leading-relaxed">{fill(boilerplate.assumptions.intro)}</p>
           <div className="space-y-2">
             {boilerplate.assumptions.clauses.map((clause, index) => (
-              <Clause key={clause} number={`5.${index + 1}`} text={fill(clause)} />
+              <Clause key={clause} number={`4.${index + 1}`} text={fillPlain(clause)} />
             ))}
           </div>
-          <SubSection number="5.6" heading={fill(boilerplate.assumptions.rolloutStrategyHeading)}>
+          <SubSection number="4.6" heading={fillPlain(boilerplate.assumptions.rolloutStrategyHeading)}>
             <p className="text-sm leading-relaxed">{proposal.rolloutStrategy}</p>
           </SubSection>
-          <SubSection number="5.7" heading={fill(boilerplate.assumptions.otherAssumptionsHeading)}>
+          <SubSection number="4.7" heading={fillPlain(boilerplate.assumptions.otherAssumptionsHeading)}>
             {proposal.otherAssumptions.length > 0 ? (
-              <ul className="list-disc space-y-1 pl-5 text-sm leading-relaxed">
+              <ul className="list-disc space-y-1 pl-10 text-sm leading-relaxed">
                 {proposal.otherAssumptions.map((assumption) => (
                   <li key={assumption}>{assumption}</li>
                 ))}
@@ -258,59 +281,67 @@ export default function ProposalOutput({
           </SubSection>
         </div>
 
-        {/* 6. Professional Service Fees */}
-        <div className="mt-10 space-y-4 break-inside-avoid">
-          <h2 className="text-lg font-semibold">6. Professional Service Fees</h2>
+        {/* 5. Professional Service Fees */}
+        <div className="mt-10 space-y-4">
+          <h2 className="border-b border-primary pb-1 text-lg font-semibold text-primary">
+            5. Professional Service Fees
+          </h2>
 
-          <table className="w-full border-collapse text-sm">
-            <thead>
-              <tr className="text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                <th className="pb-2 font-semibold">Service</th>
-                <th className="pb-2 text-right font-semibold">Fee</th>
-              </tr>
-            </thead>
-            <tbody>
-              {proposal.scopeOfWork.items.map((item) => (
-                <tr key={item.id} className="border-t border-border">
-                  <td className="py-2 pr-4 font-medium text-card-foreground">{item.name}</td>
-                  <td className="py-2 text-right text-muted-foreground whitespace-nowrap">
-                    {itemFeeText(item)}
-                  </td>
+          <div className="pl-10">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  <th className="pb-2 font-semibold">Service</th>
+                  <th className="pb-2 text-right font-semibold">Fee</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {proposal.scopeOfWork.items.map((item) => (
+                  <tr key={item.id} className="border-t border-border">
+                    <td className="py-2 pr-4 font-medium text-card-foreground">{item.name}</td>
+                    <td className="py-2 text-right text-muted-foreground whitespace-nowrap">
+                      {itemFeeText(item)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
 
-          <InvestmentSummary scopeOfWork={proposal.scopeOfWork} />
+            <InvestmentSummary scopeOfWork={proposal.scopeOfWork} />
 
-          {hasTravelNote && (
-            <p className="text-xs text-muted-foreground">Travel and expenses billed separately.</p>
-          )}
+            {hasTravelNote && (
+              <p className="text-xs text-muted-foreground">Travel and expenses billed separately.</p>
+            )}
 
-          <SubSection number="6.1" heading={fill(boilerplate.feesSection.taxesHeading)}>
+            <div className="mt-6 border-t border-border" />
+          </div>
+
+          <SubSection number="5.1" heading={fillPlain(boilerplate.feesSection.taxesHeading)}>
             <p className="text-sm leading-relaxed">{proposal.taxesAndFees}</p>
           </SubSection>
 
-          <SubSection number="6.2" heading={fill(boilerplate.feesSection.paymentTermsHeading)}>
-            <ul className="list-disc space-y-1 pl-5 text-sm leading-relaxed">
+          <SubSection number="5.2" heading={fillPlain(boilerplate.feesSection.paymentTermsHeading)}>
+            <ul className="list-disc space-y-1 pl-10 text-sm leading-relaxed">
               {proposal.paymentTerms.map((term) => (
                 <li key={term}>{term}</li>
               ))}
             </ul>
           </SubSection>
 
-          <SubSection number="6.3" heading={fill(boilerplate.feesSection.scopeVariationHeading)}>
+          <SubSection number="5.3" heading={fillPlain(boilerplate.feesSection.scopeVariationHeading)}>
             <p className="text-sm leading-relaxed">{fill(boilerplate.feesSection.scopeVariation)}</p>
           </SubSection>
         </div>
 
-        {/* 7. Representatives */}
-        <div className="mt-10 space-y-4 break-inside-avoid">
-          <h2 className="text-lg font-semibold">7. Representatives</h2>
+        {/* 6. Representatives */}
+        <div className="mt-10 space-y-4">
+          <h2 className="border-b border-primary pb-1 text-lg font-semibold text-primary">
+            6. Representatives
+          </h2>
           <p className="text-sm leading-relaxed">{fill(boilerplate.representatives.intro)}</p>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="flex flex-col gap-3 break-inside-avoid border border-border p-5">
+            <div className="flex flex-col gap-3 break-inside-avoid">
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 Customer
               </p>
@@ -321,7 +352,7 @@ export default function ProposalOutput({
               />
               <BlankLine label="Email address" value={proposal.customerRepresentative.emailAddress} />
             </div>
-            <div className="flex flex-col gap-3 break-inside-avoid border border-border p-5">
+            <div className="flex flex-col gap-3 break-inside-avoid">
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 Vendor
               </p>
@@ -337,10 +368,12 @@ export default function ProposalOutput({
           <p className="text-sm leading-relaxed">{fill(boilerplate.representatives.closing)}</p>
         </div>
 
-        {/* 8. General Terms */}
-        <div className="mt-10 break-inside-avoid">
-          <h2 className="text-lg font-semibold">8. General Terms</h2>
-          <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed">
+        {/* 7. General Terms */}
+        <div className="mt-10">
+          <h2 className="border-b border-primary pb-1 text-lg font-semibold text-primary">
+            7. General Terms
+          </h2>
+          <ul className="mt-3 list-disc space-y-2 pl-10 text-sm leading-relaxed">
             {proposal.proposalTerms.map((term) => (
               <li key={term}>{term}</li>
             ))}
@@ -358,12 +391,12 @@ export default function ProposalOutput({
 
         {/* Appendix A */}
         <div className="mt-12 space-y-4 print:break-before-page">
-          <h2 className="text-lg font-semibold">{fill(boilerplate.appendixA.heading)}</h2>
+          <h2 className="text-lg font-semibold">{fillPlain(boilerplate.appendixA.heading)}</h2>
           <p className="text-sm leading-relaxed">{fill(boilerplate.appendixA.intro)}</p>
           {boilerplate.appendixA.phases.map((phase) => (
             <div key={phase.name} className="break-inside-avoid">
-              <h3 className="text-sm font-semibold text-card-foreground">{fill(phase.name)}</h3>
-              <ul className="mt-1 list-disc space-y-1 pl-5 text-sm leading-relaxed">
+              <h3 className="text-sm font-semibold text-card-foreground">{fillPlain(phase.name)}</h3>
+              <ul className="mt-1 list-disc space-y-1 pl-10 text-sm leading-relaxed">
                 {phase.activities.map((activity) => (
                   <li key={activity}>{fill(activity)}</li>
                 ))}

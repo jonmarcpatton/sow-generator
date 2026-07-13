@@ -3,11 +3,6 @@
 
   "preamble": "THIS STATEMENT OF WORK (\"SOW\") is made and entered into by and between [VENDOR_NAME], together with its affiliates (hereinafter \"Vendor\"), and [CLIENT_NAME] (\"Customer\") (each, a \"Party\" and collectively, the \"Parties\") as of the date last signed below. This SOW forms part of the Service Agreement or other commercial agreement between the Parties (the \"Agreement\") and is subject to the terms and conditions contained therein. Capitalized terms used and not otherwise defined herein shall have the respective meanings set forth in the Agreement. In the event of any conflict between the provisions of this SOW and the provisions of the Agreement, the provisions of this SOW shall prevail over the conflicting provisions of the Agreement. Any changes to this SOW must be made in writing and signed by an authorized representative of each Party.",
 
-  "termSection": {
-    "heading": "Term",
-    "body": "This SOW commences on [START_DATE] and terminates on the completion of all services and Deliverables (as hereinafter defined) (the \"Term\")."
-  },
-
   "vendorResponsibilities": {
     "heading": "Vendor Responsibilities",
     "intro": "Vendor will provide Customer the following Professional Services (the \"Professional Services\") by the conclusion of this SOW:",
@@ -57,7 +52,7 @@
   "representatives": {
     "heading": "Representatives",
     "intro": "To meet the objectives and scope of this engagement, Vendor and Customer will appoint personnel appropriate to the roles required. In some cases, the same Customer individual may facilitate multiple roles depending on how the Customer is organized. Initial primary contacts for this SOW are:",
-    "closing": "While Vendor will use commercially reasonable efforts to ensure that all named individuals within this SOW remain assigned to this project, Vendor reserves the right to remove and replace staff at its own discretion. Vendor's ability to provide specific resources to Customer is highly dependent on the availability of Customer's appointed personnel and their performance of the Customer's obligations under the Agreement and this SOW. Notwithstanding the foregoing, in the event that Customer fails to provide required personnel, or if any Customer personnel fails to act, as and when necessary for Vendor to perform the Professional Services, Vendor: (i) provides no assurances that it will be able to complete the Professional Services in accordance with the estimates set forth above or that any named individuals within this SOW or other specific Vendor personnel will be available to perform the Professional Services requiring such Customer personnel's involvement, and (ii) shall be relieved from any obligations hereunder to provide any specific individuals to engage in the Professional Services."
+    "closing": "Vendor will use commercially reasonable efforts to keep named individuals assigned to this project but reserves the right to replace staff at its discretion. Vendor's ability to provide specific resources depends on the availability of Customer's appointed personnel. If Customer fails to provide required personnel, Vendor is relieved of any obligation to provide specific individuals and makes no assurance that the Professional Services can be completed in accordance with the estimates set forth above."
   },
 
   "generalTermsHeading": "General Terms",

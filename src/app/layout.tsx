@@ -15,7 +15,7 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "Statement of Work Generator",
+  title: "SOW Generator",
   description: "Turn discovery call notes into a client-ready statement of work.",
 };
 

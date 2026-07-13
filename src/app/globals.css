@@ -112,6 +112,56 @@ body {
     padding: 0;
     max-width: none;
   }
+
+  /* Keep headings with the content that follows them */
+  #proposal-document h2,
+  #proposal-document h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Prevent single lines stranded at page boundaries */
+  #proposal-document p,
+  #proposal-document li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Tighten vertical rhythm for print */
+  #proposal-document h2 {
+    margin-top: 1.25rem;
+  }
+
+  /* Justify body prose for a formal document feel */
+  #proposal-document p,
+  #proposal-document li {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+
+  /* Force heading color and rules to print (Chrome strips backgrounds/colors by default) */
+  #proposal-document h2 {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Constrain the document to the printable page width */
+  #proposal-document {
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  #proposal-document * {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  /* The signature grid overflows the page at full padding — tighten it for print */
+  #proposal-document .grid {
+    gap: 1rem;
+  }
 }
 
 @page {

@@ -2,6 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import terms from "../../terms.json";
 import { buildScopeOfWork, catalog, integrationIds } from "./generateProposal";
 import type { ProposalData, ScopeOfWork } from "./types";
+import { VENDOR_NAME } from "./vendor";
 
 const anthropic = new Anthropic(); // reads ANTHROPIC_API_KEY from env automatically
 const MODEL = "claude-sonnet-5";
@@ -14,6 +15,8 @@ type Trip1Response = {
 type Trip2Response = {
   introduction: string;
   blurbs: Record<string, string>;
+  rolloutStrategy: string;
+  otherAssumptions: string[];
 };
 
 const TRIP_1_SYSTEM_PROMPT = `You are helping assemble a Statement of Work for a SaaS engagement. You will receive discovery-call notes describing a prospective customer's situation, systems, and needs.
@@ -45,6 +48,10 @@ You will receive the discovery-call notes and the list of services that have bee
 
 2. A "blurb" for each selected service: one or two sentences that BOTH describe what will be delivered under this service AND connect it to the specific need or situation raised in the discovery notes. Lead with the deliverable (what the engagement will actually do), then ground it in the customer's context. This is contract scope language, not a sales pitch — describe and connect, do not persuade or promise outcomes.
 
+3. A "rolloutStrategy": one to three sentences describing how this engagement will be rolled out, based strictly on what the discovery notes say about timelines, phasing, pilot groups, business units, geographies, or sequencing. If the notes give no basis for a rollout strategy, respond with exactly: "Rollout strategy to be confirmed during the project initiation phase." Do not invent a rollout approach the notes do not support.
+
+4. An "otherAssumptions": an array of assumptions or dependencies that this engagement rests on, drawn strictly from the discovery notes. Each entry is one sentence. Include only assumptions the notes actually give a basis for — for example, a stated dependency on a third-party system, an internal deadline, a resourcing constraint, or a prerequisite the customer must complete. Do not restate general contractual assumptions. Do not pad. If the notes support no specific assumptions, return an empty array.
+
 Rules:
 - Do NOT mention, invent, or reference any prices, fees, totals, or dollar amounts. Pricing is handled separately and is not your concern.
 - Do NOT restate or paraphrase contractual terms.
@@ -60,7 +67,9 @@ Respond with ONLY a JSON object in exactly this shape, no other text, no markdow
   "blurbs": {
     "itemId1": "blurb for item 1",
     "itemId2": "blurb for item 2"
-  }
+  },
+  "rolloutStrategy": "the rollout strategy prose",
+  "otherAssumptions": ["assumption one", "assumption two"]
 }
 
 The keys in "blurbs" MUST exactly match the IDs of the selected services provided above.`;
@@ -161,7 +170,7 @@ export async function generateProposalAI(notes: string): Promise<ProposalData> {
 
   const trip2Response = await anthropic.messages.create({
     model: MODEL,
-    max_tokens: 2048,
+    max_tokens: 3072,
     system: trip2System,
     messages: [{ role: "user", content: notes }],
   });
@@ -204,5 +213,23 @@ export async function generateProposalAI(notes: string): Promise<ProposalData> {
     paymentTerms: terms.paymentTerms,
     proposalTerms: terms.proposalTerms,
     taxesAndFees: terms.taxesAndFees,
+    vendorName: VENDOR_NAME,
+    startDate: preparedOn.toLocaleDateString("en-US", dateFormat),
+    rolloutStrategy:
+      trip2Result.rolloutStrategy?.trim() ||
+      "Rollout strategy to be confirmed during the project initiation phase.",
+    otherAssumptions: Array.isArray(trip2Result.otherAssumptions)
+      ? trip2Result.otherAssumptions
+      : [],
+    vendorRepresentative: {
+      name: "",
+      addressForNotices: "",
+      emailAddress: "",
+    },
+    customerRepresentative: {
+      name: "",
+      addressForNotices: "",
+      emailAddress: "",
+    },
   };
 }

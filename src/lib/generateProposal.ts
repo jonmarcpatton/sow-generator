@@ -1,6 +1,7 @@
 import rateCard from "../../rate-card.json";
 import terms from "../../terms.json";
 import type { ProposalData, ScopeItem, ScopeOfWork } from "./types";
+import { VENDOR_NAME } from "./vendor";
 
 export type RateCardItem = {
   id: string;
@@ -136,5 +137,19 @@ export function generateProposalStub(notes: string): ProposalData {
     paymentTerms: terms.paymentTerms,
     proposalTerms: terms.proposalTerms,
     taxesAndFees: terms.taxesAndFees,
+    vendorName: VENDOR_NAME,
+    startDate: preparedOn.toLocaleDateString("en-US", dateFormat),
+    rolloutStrategy: "Rollout strategy to be confirmed during the project initiation phase.",
+    otherAssumptions: [],
+    vendorRepresentative: {
+      name: "",
+      addressForNotices: "",
+      emailAddress: "",
+    },
+    customerRepresentative: {
+      name: "",
+      addressForNotices: "",
+      emailAddress: "",
+    },
   };
 }

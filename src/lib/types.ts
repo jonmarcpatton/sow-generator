@@ -25,6 +25,12 @@ export type ScopeOfWork = {
   monthlyCommitments: MonthlyCommitment[];
 };
 
+export type Representative = {
+  name: string;
+  addressForNotices: string;
+  emailAddress: string;
+};
+
 export type ProposalData = {
   clientName: string;
   preparedDate: string;
@@ -35,4 +41,15 @@ export type ProposalData = {
   paymentTerms: string[];
   proposalTerms: string[];
   taxesAndFees: string;
+  /** Vendor display name, from src/lib/vendor.ts — substituted into boilerplate placeholders. */
+  vendorName: string;
+  /** SOW commencement date, formatted for display. Deterministic, never AI-generated. */
+  startDate: string;
+  /** AI-generated: rollout strategy extracted from the discovery notes (SOW section 5.6). */
+  rolloutStrategy: string;
+  /** AI-generated: other assumptions and dependencies extracted from the discovery notes (SOW section 5.7). */
+  otherAssumptions: string[];
+  /** Form fields for the Representatives section. Not AI-generated. */
+  vendorRepresentative: Representative;
+  customerRepresentative: Representative;
 };

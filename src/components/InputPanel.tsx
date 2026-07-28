@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { SAMPLE_DISCOVERY_NOTES } from "@/lib/sampleNotes";
 
 type InputPanelProps = {
   notes: string;
@@ -42,6 +43,11 @@ export default function InputPanel({
   function handleRemoveLogo() {
     onLogoChange(null);
     if (logoInputRef.current) logoInputRef.current.value = "";
+  }
+
+  function handleLoadSample() {
+    setNotesFileError(null);
+    onNotesChange(SAMPLE_DISCOVERY_NOTES);
   }
 
   async function handleNotesFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
@@ -110,9 +116,9 @@ export default function InputPanel({
         />
 
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-          <span>Paste your notes above, or</span>
+          <span>Paste your notes above,</span>
           <label className="cursor-pointer font-medium text-primary hover:underline">
-            upload a file (.txt, .docx)
+            upload a file (.txt, .docx),
             <input
               ref={notesFileInputRef}
               type="file"
@@ -121,6 +127,14 @@ export default function InputPanel({
               className="hidden"
             />
           </label>
+          <span>or</span>
+          <button
+            type="button"
+            onClick={handleLoadSample}
+            className="font-medium text-primary hover:underline"
+          >
+            load a sample
+          </button>
           {extractingNotes && <span>Extracting text…</span>}
         </div>
         {notesFileError && <p className="text-xs text-destructive">{notesFileError}</p>}

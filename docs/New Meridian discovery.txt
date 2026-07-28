@@ -1,0 +1,59 @@
+Discovery Call Notes: Meridian Logistics Group
+Date: July 10, 2026
+Attendees: Dana Ruiz (VP Operations), Marcus Feld (Director, IT), Priya Nadar (Support Lead)
+Project Name: Support Escalation & Account Visibility
+
+1. Overview & Business Objectives
+
+Meridian Logistics operates a freight brokerage platform serving mid-market shippers.
+Their support organization is drowning in escalations that arrive with no account context.
+Agents cannot tell whether an inbound ticket is from a customer on a $2M annual contract
+or a self-serve trial, so everything gets triaged the same way and their largest accounts
+are experiencing the same response times as their smallest.
+
+The primary objective is to give the support team account context at the point of triage,
+and to eliminate the manual handoff between support and engineering when a ticket turns
+out to be a platform defect rather than a user issue.
+
+2. Key Integration Requirements & Use Cases
+
+- Salesforce Integration (CRM to Support):
+  - The Problem: Contract value, renewal date, and account tier live in Salesforce and
+    are invisible to the support team at triage time.
+  - The Requirement: Real-time sync of account attributes into the support queue.
+  - Routing Logic: Tickets from accounts flagged "Strategic" or with a renewal inside
+    90 days should route to the senior support pod automatically.
+
+- Jira Integration (Support to Engineering):
+  - The Problem: When support identifies a genuine platform defect, an agent re-types
+    the whole ticket into Jira by hand. Priya estimates this costs the team 6-8 hours
+    a week and introduces transcription errors.
+  - The Requirement: One-click escalation from a support ticket to a Jira issue,
+    preserving the original ticket content and customer identifiers.
+  - Routing Logic: Jira issue priority should inherit from the account tier established
+    by the Salesforce sync.
+
+- Slack Integration (Notifications):
+  - The Problem: Nobody finds out an escalation happened until someone checks a
+    dashboard. Marcus specifically asked for this.
+  - The Requirement: Post escalation notifications to a designated Slack channel,
+    with the account name, tier, and Jira link.
+
+- Professional Services:
+  - Consulting: Meridian's team has never done a Salesforce integration and Marcus
+    was explicit that they want architectural review before they start building
+    against the API.
+  - Training: Support leads need to understand how the routing rules work well enough
+    to modify them without filing a ticket with us every time.
+
+3. Current Technical Environment & Constraints
+
+- Platform Stack: Python/Django backend, Postgres, deployed on GCP.
+- Salesforce: Enterprise Edition. REST API access confirmed available.
+- Jira: Jira Cloud. Marcus confirmed webhooks are permitted under their security policy.
+- Slack: Enterprise Grid. App installation requires IT security review, which Marcus
+  said typically takes two weeks.
+- Timeline: Kickoff targeted for early August. Dana wants the Salesforce piece live
+  before their Q4 renewal cycle begins in October.
+- Resourcing: Meridian has two engineers who can be allocated part-time. Marcus was
+  clear this is a hard ceiling and they cannot add headcount for this project.

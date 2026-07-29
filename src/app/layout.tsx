@@ -27,6 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${sourceSerif.variable}`}>
       <body className="min-h-screen bg-background text-foreground antialiased">
+        <header className="no-print border-b border-sidebar-border bg-sidebar">
+          <div className="mx-auto max-w-7xl px-6 py-4 sm:px-10">
+            <div className="mx-auto max-w-2xl">
+              <span className="text-base font-semibold text-sidebar-foreground">SOW Generator</span>
+            </div>
+          </div>
+        </header>
         {children}
       </body>
     </html>

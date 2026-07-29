@@ -47,12 +47,9 @@ export default function Home() {
 
   return (
     <main className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-10 sm:px-10 print:max-w-none print:p-0">
-      <header className="no-print">
-        <h1 className="text-xl font-semibold text-foreground">Statement of Work Generator</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Turn discovery call notes into a client-ready statement of work.
-        </p>
-      </header>
+      <p className="no-print mx-auto w-full max-w-2xl text-sm text-muted-foreground">
+        Turn discovery call notes into a client-ready statement of work.
+      </p>
 
       {!proposal ? (
         <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">

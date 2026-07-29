@@ -115,10 +115,9 @@ export default function InputPanel({
           className="min-h-[320px] w-full resize-y rounded-md border border-input bg-background p-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
         />
 
-        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-          <span>Paste your notes above,</span>
-          <label className="cursor-pointer font-medium text-primary hover:underline">
-            upload a file (.txt, .docx),
+        <div className="flex flex-wrap items-center gap-2">
+          <label className="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-accent">
+            Upload a file (.txt, .docx)
             <input
               ref={notesFileInputRef}
               type="file"
@@ -127,15 +126,14 @@ export default function InputPanel({
               className="hidden"
             />
           </label>
-          <span>or</span>
           <button
             type="button"
             onClick={handleLoadSample}
-            className="font-medium text-primary hover:underline"
+            className="inline-flex items-center justify-center rounded-md border border-border bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-accent"
           >
-            load a sample
+            Load a sample
           </button>
-          {extractingNotes && <span>Extracting text…</span>}
+          {extractingNotes && <span className="text-xs text-muted-foreground">Extracting text…</span>}
         </div>
         {notesFileError && <p className="text-xs text-destructive">{notesFileError}</p>}
       </div>
